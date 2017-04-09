@@ -1,0 +1,26 @@
+import java.util.Scanner;
+
+
+public class Calculator {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		String numRegex = "[0-9]";
+		
+		int first = Integer.parseInt(get(sc, "Enter a number: ", numRegex));
+		int second = Integer.parseInt(get(sc, "Enter another number: ", numRegex));
+		
+		System.out.println(first+second);
+	}
+	
+	public static String get(Scanner sc, String prompt, String regex) {
+		String s;
+		do {
+			System.out.print(prompt);
+			s = sc.nextLine().trim();
+			try {
+				return Integer.parseInt(s);
+			} catch (Exception e) {}
+		} while(true);
+	}
+}

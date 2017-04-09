@@ -1,0 +1,23 @@
+import java.util.Scanner;
+
+
+public class Calculator {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		// "Enter a number: ";
+		// "Enter another number: ";
+		
+	}
+	
+	public static int getInt(Scanner sc, String prompt) {
+		String s;
+		do {
+			System.out.print(prompt);
+			s = sc.nextLine().trim();
+			try {
+				int i = Integer.parseInt(s);
+			} catch (Exception e) {}
+		} while();
+		
+	}
+}
