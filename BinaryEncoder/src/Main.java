@@ -1,18 +1,25 @@
-
 public class Main {
 	public static void main(String[] args) {
 		BinaryEncoder encoder = new BinaryEncoder();
 		
-//		encoder.decode("0100100001100101011011000110110001101111001000000101011101101111011100100110110001100100");
-//		encoder.decode("0111000001101100011001010110000101110011011001010010000001110100011000010110110001101011001"
-//				+ "000000111010001101111001000000110110101100101");
-//		encoder.decode("0110110001101001011001100110010100100000011100100110100101100111011010000111010000100000011"
-//				+ "01110011011110111011100100000011010010111001100100000011011000110111101101110011001010110110001111001");
+		String[] binary = {
+				"0100100001100101011011000110110001101111001000000101011101101111011100100110110001100100",
+				
+				"0111000001101100011001010110000101110011011001010010000001110100011000010110110001101011"
+				+ "001000000111010001101111001000000110110101100101",
+				
+				"0110110001101001011001100110010100100000011100100110100101100111011010000111010000100000"
+				+ "01101110011011110111011100100000011010010111001100100000011011000110111101101110011001"
+				+ "010110110001111001"
+				};
 		
-//		String s = "byte";
-//		System.out.println(encoder.decode(encoder.encode(s)));
+		for(String s : binary) {
+			System.out.println(encoder.decode(s));
+		}
 		
-		System.out.println();
+		String str = "byte";
+		System.out.println(encoder.decode(encoder.encode(str)));
+		
 	}
 }
 
@@ -23,7 +30,9 @@ class BinaryEncoder {
 	public String encode(String s) {
 		String binaryText = "";
 		
-		for(int i = 0; i < s.length(); i++) {
+		for(char c : s.toCharArray()) {
+			int bi = Integer.parseInt(Integer.toBinaryString(c));
+			binaryText += String.format("%08d", bi);
 		}
 		
 		return binaryText;
@@ -32,9 +41,10 @@ class BinaryEncoder {
 	public String decode(String s) {
 		String text = "";
 		
-		if(s.matches("[0-1]")) {
-			System.out.println("Text cannot be decoded.");
-			return null;
+		if(s.length() % 8 > 0 ||
+				!s.matches("[01]+")) {
+			System.out.println("\"" + s + "\" cannot be decoded.");
+			return "";
 		}
 		
 		for(int i = 0; i < s.length() / 8; i++) {
