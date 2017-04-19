@@ -8,7 +8,7 @@ public class Calculator {
 		sc = new Scanner(System.in);
 		
 		String numRegex = "\\.??[0-9]";
-		String modRegex = "[+\\-x/]{1}+";
+		String modRegex = "[+|[-]|x/]{1}+";
 		
 		double first = Double.parseDouble(get("Enter a number: ", numRegex));
 		double second = Double.parseDouble(get("Enter another number: ", numRegex));
