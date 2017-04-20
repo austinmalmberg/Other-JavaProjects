@@ -26,8 +26,6 @@ public class GameManager {
 	public void startGame() {
 		getFirstTurn();
 		
-		
-		
 		// game loop
 		do {
 			// if neither player wins, carry on
@@ -86,7 +84,7 @@ public class GameManager {
 		int ans;
 		boolean invalid = true;
 		
-		System.out.println("The next question is for a dude.  Choose your category:");
+		System.out.println("If you get the next question right, you will win the category.  Choose your category:");
 		
 		for (int i = 0; i < p.getCategories().length; i++) {
 			if(!p.getCategories()[i]) {  // if category is false, print
@@ -99,7 +97,7 @@ public class GameManager {
 			if (!p.getCategories()[ans]) {  // if the selected category is false then break loop
 				invalid = false;
 			} else {
-				System.out.println("You already have that dude!");
+				System.out.println("You've already won that category!");
 			}
 		} while(invalid);
 		
