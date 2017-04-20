@@ -1,7 +1,7 @@
 package com.austin.challengeMini;
 
+import java.io.File;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
  */
 public class RollerCoaster {
 	private static List<String> dictionary;
-	private static String dictionaryPath = "/Users/mac9812e/Eclipse Workspace/DailyProgrammer/src/dictionary.txt";
+	private static String dictionaryFileName = "dictionary.txt";
 	
 	public static void main(String[] args) {
-		loadDictionary(dictionaryPath);
+		List<String> dictionary = loadDictionary(dictionaryFileName);
 		
 		List<String> rcWords = new ArrayList<String>();		
 		
@@ -38,7 +38,7 @@ public class RollerCoaster {
 		
 		long elapsed = System.currentTimeMillis() - start;
 		
-		System.out.println(elapsed + " size: " + rcWords.size());
+		System.out.println("Time elapsed: " + elapsed + "\nNumber of Roller Coaster Words: " + rcWords.size());
 		
 		// print each roller coaster word
 //		for(String w : rcWords) {
@@ -102,13 +102,15 @@ public class RollerCoaster {
 	 * 
 	 * @param filename
 	 */
-	private static void loadDictionary(String filename) {
+	private static List<String> loadDictionary(String filename) {
 		try {
-			dictionary = Files.lines(Paths.get(filename))
+			return Files.lines(new File(filename).toPath())
 					.collect(Collectors.toList());
 		} catch (Exception e) {
 			System.out.println("Cannot load dictionary.");
 			System.exit(0);
 		}
+		
+		return null;
 	}
 }
