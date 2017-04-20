@@ -1,5 +1,6 @@
 package com.austin.challenge304;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,46 +13,55 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-// Not working.  Update file paths
-
+/**
+ * Description
+ * Your task is to design a program to help an accountant to get balances from accounting journals.
+ * 
+ * User input
+ * User input has the following form
+ * AAAA BBBB CCC-XX DDD-XX EEE
+ * 
+ * AAA is the starting account (* means first account of source file), BBB is the ending account(* means last account of source file),
+ * CCC-YY is the first period (* means first period of source file), DDD-YY is the last period (* means last period of source file),
+ * EEE is output format (values can be TEXT or CSV).
+ * 
+ * @author Austin Malmberg
+ */
 public class LittleAccountant {
-	static final String DATE_FORMAT = "MMM-dd";
-	static DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+	public static final String DATE_FORMAT = "MMM-dd";
+	public static DateFormat df = new SimpleDateFormat(DATE_FORMAT);
 	
-	static int startAccount;
-	static int endAccount;
-	static long startDate;
-	static long endDate;
+	public static int startAccount;
+	public static int endAccount;
+	public static long startDate;
+	public static long endDate;
 	
-	static int debits;
-	static int credits;
+	public static int debits;
+	public static int credits;
 	
 	public static void main(String[] args) {
 		df.setLenient(false);
 		
-		Path journalPath = Paths.get("/Users/mac9812e/Eclipse Workspace/DailyProgrammer/bin/com/austin/challenge/e304/Journal.txt");
-		Path accountPath = Paths.get("/Users/mac9812e/Eclipse Workspace/DailyProgrammer/bin/com/austin/challenge/e304/Accounts.txt");
-		
-		List<List<String>> journalEntries;
-		List<List<String>> accounts;
-		
-		List<List<String>> filteredList;
-		
-		Scanner sc = new Scanner(System.in);		
-		String[] input;
+		Path journalPath = new File("Journal.txt").toPath();
+		Path accountPath = new File("Accounts.txt").toPath();
 		
 		// initialize lists
-		journalEntries = getStringList_noHeaders(journalPath); // [account, period, debit, credit]
-		accounts = getStringList_noHeaders(accountPath); // [account, label]
+		List<List<String>> journalEntries = getStringList_noHeaders(journalPath); // [account, period, debit, credit]
+		List<List<String>> accounts = getStringList_noHeaders(accountPath); // [account, label]
 		
+		// check that accounts balance
 		debits = journalEntries.stream().mapToInt(entry -> Integer.parseInt(entry.get(2))).sum();
 		credits = journalEntries.stream().mapToInt(entry -> Integer.parseInt(entry.get(3))).sum();
 
 		checkBalances(debits, credits);
 		
+		Scanner sc = new Scanner(System.in);		
+		String[] input;
+		
 		// prompt and get input
-		System.out.println("Enter input [ format= \"STARTING_ACCOUNT_NUMBER ENDING_ACCOUNT_NUMBER START_DATE END_DATE OUTPUT(TEXT or CSV)\" ] : ");
+		System.out.println("Enter input [ format= \"STARTING_ACCOUNT_NUMBER  ENDING_ACCOUNT_NUMBER  START_DATE  END_DATE  OUTPUT(TEXT or CSV)\" ] : ");
 		input = sc.nextLine().trim().split("[\\s]+");
 		
 		sc.close();
@@ -67,7 +77,7 @@ public class LittleAccountant {
 		
 		// filter relevant entries
 		// assumes all account numbers are numeric
-		filteredList = journalEntries.stream().filter(entry -> 
+		List<List<String>> filteredList = journalEntries.stream().filter(entry -> 
 					Integer.parseInt(entry.get(0)) >= startAccount &&
 					Integer.parseInt(entry.get(0)) <= endAccount &&
 					getDate(entry.get(1)) >= startDate &&
@@ -96,7 +106,7 @@ public class LittleAccountant {
 		// check # arguments
 		if(input.length != 5) {
 			System.out.println("Input must take 5 arguments (separated by spaces).");
-			errorFlag = true;
+			System.exit(0);
 		}
 		
 		// check valid account numbers
@@ -166,6 +176,7 @@ public class LittleAccountant {
 	
 	private static List<List<String>> getStringList_noHeaders(Path filePath) {
 		try {
+			
 			return Files.lines(filePath)
 					.skip(1)
 					.map(Pattern.compile("[;]+")::split)
