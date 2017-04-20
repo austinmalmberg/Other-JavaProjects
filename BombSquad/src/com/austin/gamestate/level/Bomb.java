@@ -29,7 +29,7 @@ public class Bomb {
 	
 	private final int default_time_in_secs = 15;
 	private final int default_digits = 4;
-	private final int default_attempts_remaining = 8;
+	private final int default_attempts_remaining = 12;
 	
 	private int digits;
 	private boolean digits_repeatable;
@@ -104,7 +104,6 @@ public class Bomb {
 	}
 	
 	private int setBlinkDelay(int time_in_ms) {
-		if(time_in_ms <= 0) return 1;
 		if(time_in_ms < 2000) return 2;  // blink ever quarter second
 		if(time_in_ms < 5000) return 5;  // blink every half second
 		if(time_in_ms < 10000) return 10;  // blink every second
@@ -174,5 +173,9 @@ public class Bomb {
 		}
 		
 		g.drawString(time_formatted, timer_x, timer_y);
+	}
+
+	public String getCode() {
+		return defuse_code;
 	}
 }

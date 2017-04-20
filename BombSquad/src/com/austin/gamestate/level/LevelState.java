@@ -22,7 +22,7 @@ public class LevelState extends GameState {
 	private KeyPad kp;
 	
 	private Font clipboard_font;
-	private Color correct_number;  // green color to indicate the correct number and the incorrect position
+	private Color correct_number;  // green color to indicate the correct number in the incorrect position
 	private Color correct_position;
 	
 	private Color key_press_color;
@@ -112,7 +112,6 @@ public class LevelState extends GameState {
 		// bomb.update() sometimes throws a NullPointerException.  Sleep thread until bomb can be initialized
 		while(bomb == null) {
 			try {
-				System.out.println("Bomb null! Thread sleeping 2ms.");
 				Thread.sleep(2);
 			} catch (InterruptedException ie) {
 				ie.printStackTrace();
@@ -141,8 +140,7 @@ public class LevelState extends GameState {
 		
 		
 		
-		if(!running) {
-			
+		if(!running) {			
 			if(winner)
 				outcome = "Bomb defused!";
 			else
@@ -171,27 +169,27 @@ public class LevelState extends GameState {
 			g.fillRect(p.x, p.y, KeyPad.key_width, KeyPad.key_height);
 		}
 		
-//		// print each attempt to the clipboard
-//		for(int i = 0; i < clipboard.size(); i++) {
-//			digit_padding = 0;
-//			
-//			cb_x = clipboard_x + (130 * (i / 6));
-//			cb_y = clipboard_y + (28 * (i % 6));
-//			
-//			// the numbers within the strings are colored respective to their position in the bomb_code 
-//			for(int j = 0; j < clipboard.get(i).length(); j++) {
-//				if(clipboard.get(i).charAt(j) == bomb_code.charAt(j)) {
-//					g.setColor(correct_position);
-//				} else if (bomb_code.indexOf(clipboard.get(i).charAt(j)) >= 0) {
-//					g.setColor(correct_number);
-//				} else {
-//					g.setColor(Color.BLACK);
-//				}
-//				
-//				g.drawString("" + clipboard.get(i).charAt(j), cb_x + digit_padding, cb_y);
-//				digit_padding += 20;
-//			}
-//		}
+		// print each attempt to the clipboard
+		for(int i = 0; i < clipboard.size(); i++) {
+			digit_padding = 0;
+			
+			cb_x = clipboard_x + (130 * (i / 6));
+			cb_y = clipboard_y + (28 * (i % 6));
+			
+			// the numbers within the strings are colored respective to their position in the bomb_code 
+			for(int j = 0; j < clipboard.get(i).length(); j++) {
+				if(clipboard.get(i).charAt(j) == bomb.getCode().charAt(j)) {
+					g.setColor(correct_position);
+				} else if (bomb.getCode().indexOf(clipboard.get(i).charAt(j)) >= 0) {
+					g.setColor(correct_number);
+				} else {
+					g.setColor(Color.BLACK);
+				}
+				
+				g.drawString("" + clipboard.get(i).charAt(j), cb_x + digit_padding, cb_y);
+				digit_padding += 20;
+			}
+		}
 		
 		
 		// print final outcome
