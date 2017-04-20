@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
  *
  */
 public class RollerCoaster {
-	private static List<String> dictionary;
 	private static String dictionaryFileName = "dictionary.txt";
 	
 	public static void main(String[] args) {
