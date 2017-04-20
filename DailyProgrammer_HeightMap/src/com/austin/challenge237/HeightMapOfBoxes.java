@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 public class HeightMapOfBoxes {
 	public static void main(String[] args) {
-		HeightMap hm = new HeightMap("/com/austin/challenge/i237/heightmap1.txt");
+		HeightMap hm = new HeightMap("heightmap1.txt");
 		
 		Direction direction = Direction.RIGHT;
 		Level level = Level.ZERO;
@@ -35,7 +35,7 @@ class HeightMap {
 	
 	public HeightMap(String filename) {		
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(getClass().getResource(filename).toURI()))));
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(filename))));
 			
 			width = Integer.parseInt(br.readLine().trim());
 			height = Integer.parseInt(br.readLine().trim());
