@@ -1,5 +1,6 @@
 package com.austin.challenge301;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -75,12 +76,10 @@ public class GuitarTablature {
 		return notes[index];			
 	}
 	
-	private static void loadTablature(String fileName) {
-		Path filePath = Paths.get("/Users/mac9812e/Eclipse Workspace/DailyProgrammer/src/com/austin/challenge/h301/" + fileName);
-		
+	private static void loadTablature(String fileName) {		
 		try {
 			
-			strings = Files.lines(filePath)
+			strings = Files.lines(new File(fileName).toPath())
 					.map(String::toCharArray)
 					.toArray(char[][]::new);
 			
