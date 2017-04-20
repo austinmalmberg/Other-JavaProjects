@@ -1,6 +1,0 @@
-1490922714590	Rename field 'mapPath'
-1490922730200	Rename local variable 'path'
-1490923551463	Move 'maze1.txt' to 'DailyProgrammer_Maze'
-1490923554925	Move 'testmaze.txt' to 'DailyProgrammer_Maze'
-1490924275928	Rename field 'fileName'
-1490924300465	Rename local variable 'fileName'
