@@ -10,7 +10,7 @@ public class ConsonantsAndVowels {
 		String[] wordStructures = {"cvcvcc", "CcvV", "cvcvcvcvcvcvcvcvcvcv"};
 		
 		for(String structure : wordStructures) {
-			System.out.println(createWord(structure));
+			System.out.println(structure + " -> " + createWord(structure));
 		}
 	}
 	
