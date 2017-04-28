@@ -3,13 +3,40 @@ package com.austin.challenge301;
 import java.io.File;
 import java.nio.file.Files;
 
-// fix file path
-
+/**
+ * Description
+ * 
+ * Tablature is a common form of notation for guitar music. It is good for beginners as it tells you exactly how to play a note.
+ * The main drawback of tablature is that it does not tell you the names of the notes you play. We will be writing a program that
+ * takes in tablature and outputs the names of the notes.
+ * 
+ * In music there are 12 notes named A A# B C C# D D# E F# G and G#. The pound symbol represents a sharp note. Each one of these notes
+ * is separated by a semitone. Notice the exceptions are that a semitone above B is C rather than B sharp and a semitone above E is F.
+ * 
+ * Input Description
+ * 
+ * In tabs there are 6 lines representing the six strings of a guitar. The strings are tuned so that not pressing down a fret gives you
+ * these notes per string:
+ * 
+ *    E |-----------------|
+ *    B |-----------------|
+ *    G |-----------------|
+ *    D |-----------------|
+ *    A |-----------------|
+ *    E |-----------------|
+ *    
+ *    Tabs include numbers which represent which fret to press down. Numbers can be two digits. Pressing frets down on a string adds one
+ *    semitone to the open note per fret added. For example, pressing the first fret on the A string results in an A#, pressing the second
+ *    fret results in a B.
+ * 
+ * @author Austin Malmberg
+ *
+ */
 public class GuitarTablature {
 	
 	static char[][] strings;
 	
-	static String[] notes = {
+	public static final String[] NOTES = {
 			"A",
 			"A#",
 			"B",
@@ -65,13 +92,13 @@ public class GuitarTablature {
 	private static String getNote(char stringNote, int increment) {
 		int index = 0;
 		
-		for(int i = 0; i < notes.length; i++) {
-			if(notes[i].equals(String.valueOf(stringNote))) {
-				index = (i + increment) % 12;
+		for(int i = 0; i < NOTES.length; i++) {
+			if(NOTES[i].equals(String.valueOf(stringNote))) {
+				index = (i + increment) % NOTES.length;
 			}
 		}
 		
-		return notes[index];			
+		return NOTES[index];			
 	}
 	
 	private static void loadTablature(String fileName) {		

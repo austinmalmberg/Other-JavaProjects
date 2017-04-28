@@ -1,5 +1,6 @@
 package com.austin.challenge301;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,8 +13,7 @@ public class GuitarTablature_new {
 	static List<String> notes = Arrays.asList("C","C#","D","D#","E","F","F#","G","G#","A","A#","B");
 	
 	public static void main(String[] args) throws IOException{
-		Path filePath = Paths.get("/Users/mac9812e/Eclipse Workspace/DailyProgrammer/src/com/austin/challenge/h301/Sample2.txt");
-	    char[][] map = Files.lines(filePath).map(String::toCharArray).toArray(char[][]::new);
+	    char[][] map = Files.lines(new File("Sample2.txt").toPath()).map(String::toCharArray).toArray(char[][]::new);
 	    
 	    for(int y = 2; y < map[0].length; y++) {
 	    	
