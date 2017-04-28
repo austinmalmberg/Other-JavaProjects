@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// update path
-
 /**
  * Roller Coaster Words
  * 
@@ -46,7 +44,7 @@ public class RollerCoaster {
 	}
 	
 	/**
-	 * Recursion inspired by comment.
+	 * Recursion inspired by comment.  Not used.
 	 * 
 	 * Average time = 22 ms
 	 * 
