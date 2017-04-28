@@ -5,10 +5,13 @@ import java.io.InputStreamReader;
 
 public class InputHelper {
 	
-	public InputHelper() {}
+	private BufferedReader br;
+	
+	public InputHelper() {
+		br = new BufferedReader(new InputStreamReader(System.in));
+	}
 	
 	public int getInt(String prompt, int min, int max) {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int i;
 		
 		do {
@@ -28,7 +31,6 @@ public class InputHelper {
 	}
 	
 	public double getDouble(String prompt, double min, double max) {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		double d;
 		
 		do {
@@ -52,7 +54,6 @@ public class InputHelper {
 	}
 	
 	public String getString(String prompt) {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String s;
 		
 		do {
