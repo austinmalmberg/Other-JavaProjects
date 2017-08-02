@@ -97,11 +97,7 @@ public class MenuState extends GameState {
 	public void mousePressed(int x, int y) {
 		
 	}
-	
-	
-	
-	
-	
+
 	@Override
 	public void keyReleased(int k) {}
 	

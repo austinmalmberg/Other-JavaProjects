@@ -2,6 +2,12 @@ package com.austin.main;
 
 import javax.swing.JFrame;
 
+// stop blinking when defused or detonated
+// fix clipboard formatting
+// mouseover on menustate
+// implement wiring
+// lose when attempts goes to zero
+
 public class Game {
 	public static void main(String[] args) {
 		JFrame window = new JFrame("Bomb Squad");

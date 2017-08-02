@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;Lynda_Python/lynda.py&apos; to &apos;comments.py&apos;" description="Rename resource &apos;lynda.py&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="lynda.py" name="comments.py" stamp="1489881635701" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;Lynda_Python/ch2/variables&apos; to &apos;variables.py&apos;" description="Rename resource &apos;variables&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="ch2/variables" name="variables.py" stamp="1489882945122" updateReferences="true"/>
-</session>

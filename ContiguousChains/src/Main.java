@@ -4,9 +4,11 @@
 		public static void main(String[] args) {
 			ContiguousChains c1 = new ContiguousChains("Chains1.txt", 'x');
 			c1.countChains();
+			c1.printArray();
 			
 			ContiguousChains c2 = new ContiguousChains("Chains2.txt", 'x');
 			c2.countChains();
+			c2.printArray();
 			
 			ContiguousChains c3 = new ContiguousChains("Chains3.txt", 'x');
 			c3.countChains();
@@ -81,7 +83,7 @@
 				long elapsed = (System.nanoTime() - start);
 				
 				System.out.printf("Chains in %s: %d (Completed in %d nanoseconds)%n", filename, count, elapsed);
-				printArray();
+//				printArray();
 		
 			}
 		
