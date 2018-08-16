@@ -3,27 +3,24 @@ package com.austin.chess.logical.turn;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.austin.chess.logical.board.Board;
 import com.austin.chess.logical.board.Move;
 import com.austin.chess.logical.piece.PieceColor;
 
 public class TurnManager {
 
-	private final PieceColor[] players = PieceColor.values();
-	
-	private Board board;
+	private final PieceColor[] players;
 	
 	private int turnNumber;
-	private int playerIndex;
+	private int currentPlayerIndex;
 	
 	private Map<Integer, Turn> turns;
 	private Turn currentTurn;
 	
-	public TurnManager(Board board) {
-		this.board = board;
+	public TurnManager(PieceColor[] players) {
+		this.players = players;
 		
 		turnNumber = 1;
-		playerIndex = 0;
+		currentPlayerIndex = 0;
 		
 		turns = new TreeMap<>();
 		currentTurn = new Turn(turnNumber);
@@ -41,12 +38,12 @@ public class TurnManager {
 	}
 	
 	public void advanceTurn() {
-		if(++playerIndex >= players.length) {
-			playerIndex = 0;
+		if(++currentPlayerIndex >= players.length) {
+			currentPlayerIndex = 0;
 			turnNumber++;
 		}
 	}
 	
-	public PieceColor getCurrentPlayer() { return players[playerIndex]; }
+	public PieceColor getCurrentPlayer() { return players[currentPlayerIndex]; }
 	public int getTurnNumber() { return turnNumber; }
 }
