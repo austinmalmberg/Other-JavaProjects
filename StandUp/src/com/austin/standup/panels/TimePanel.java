@@ -26,16 +26,15 @@ public class TimePanel extends JPanel {
 		
 		buttons = new ArrayList<>();
 		
-		btn_play = new JButton();
-		btn_play.setText("Play");
+//		ImageIcon play_icon = new ImageIcon("U:/JavaProjects/StandUp/src/2isbfdh.gif");
+		
+		btn_play = new JButton("Play");
 		buttons.add(btn_play);
 		
-		btn_pause = new JButton();
-		btn_pause.setText("Pause");
+		btn_pause = new JButton("Pause");
 		buttons.add(btn_pause);
 		
-		btn_stop = new JButton();
-		btn_stop.setText("Stop");
+		btn_stop = new JButton("Stop");
 		buttons.add(btn_stop);
 		
 		for(JButton b : buttons) {

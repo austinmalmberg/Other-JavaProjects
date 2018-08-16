@@ -15,9 +15,6 @@ public class LogManager {
 	public void save(int orientation, int seconds) {
 		if(seconds < 2) return;
 		logs.add(new Log(orientation, seconds));
-		
-		System.out.println(orientation+ " " + seconds);
-		print();
 	}
 	
 	public void purge() {
