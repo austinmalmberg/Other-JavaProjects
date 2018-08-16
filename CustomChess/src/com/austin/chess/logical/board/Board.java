@@ -197,7 +197,7 @@ public class Board {
 //		return valid;
 //	}
 	
-	public void update(PieceColor color) {
+	public void updateValidMoves(PieceColor color) {
 		pieces.stream()
 				.filter(piece -> piece.color() == color)
 				.forEach(Piece::updateValidMoves);
