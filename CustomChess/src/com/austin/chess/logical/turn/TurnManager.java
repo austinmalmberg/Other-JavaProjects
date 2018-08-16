@@ -1,13 +1,17 @@
-package com.austin.chess;
+package com.austin.chess.logical.turn;
 
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.austin.chess.logical.board.Board;
+import com.austin.chess.logical.board.Move;
+import com.austin.chess.logical.piece.PieceColor;
+
 public class TurnManager {
 
-	private final String[] players = {"white", "black"};
+	private final PieceColor[] players = PieceColor.values();
 	
-	private String board;
+	private Board board;
 	
 	private int turnNumber;
 	private int playerIndex;
@@ -15,7 +19,7 @@ public class TurnManager {
 	private Map<Integer, Turn> turns;
 	private Turn currentTurn;
 	
-	public TurnManager(String board) {
+	public TurnManager(Board board) {
 		this.board = board;
 		
 		turnNumber = 1;
@@ -26,6 +30,8 @@ public class TurnManager {
 	}
 	
 	public void add(Move move) {
+		
+		// start a new turn if the turn number does not equal the currentTurn's turn number
 		if(turnNumber != currentTurn.getTurnNumber()) {
 			turns.put(currentTurn.getTurnNumber(), currentTurn);
 			currentTurn = new Turn(turnNumber);
@@ -41,6 +47,6 @@ public class TurnManager {
 		}
 	}
 	
-	public String getCurrentPlayer() { return players[playerIndex]; }
+	public PieceColor getCurrentPlayer() { return players[playerIndex]; }
 	public int getTurnNumber() { return turnNumber; }
 }
