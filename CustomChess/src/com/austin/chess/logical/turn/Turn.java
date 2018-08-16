@@ -1,7 +1,9 @@
-package com.austin.chess;
+package com.austin.chess.logical.turn;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.austin.chess.logical.board.Move;
 
 public class Turn {
 
