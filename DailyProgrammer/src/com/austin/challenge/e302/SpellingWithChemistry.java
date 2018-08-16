@@ -36,7 +36,7 @@ public class SpellingWithChemistry {
 	private static void loadElementTable() {
 		
 		try {
-			Path filePath = Paths.get("/Users/mac9812e/Eclipse Workspace/DailyProgrammer/bin/com/austin/challenge/e302/elements.txt");
+			Path filePath = Paths.get("elements.txt");
 			
 			// converts the elements to a list
 			elements = Files.lines(filePath)
