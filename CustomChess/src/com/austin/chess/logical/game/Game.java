@@ -1,11 +1,10 @@
 package com.austin.chess.logical.game;
 
-import java.awt.Point;
 import java.util.Scanner;
 
 import com.austin.chess.logical.board.Board;
-import com.austin.chess.logical.piece.Piece;
 import com.austin.chess.logical.piece.PieceColor;
+import com.austin.chess.logical.turn.TurnManager;
 
 public class Game {
 
@@ -16,7 +15,7 @@ public class Game {
 	private Board board;
 	private TurnManager turn;
 	
-	private Graveyard graveyard;
+	private Graveyard graveyard;	// sidebar
 	
 	public Game() {
 		sc = new Scanner(System.in);
@@ -24,7 +23,7 @@ public class Game {
 		running = true;
 		
 		board = new Board();
-		turn = new TurnManager();
+		turn = new TurnManager(PieceColor.values());
 		
 		graveyard = new Graveyard();
 	}
@@ -34,15 +33,9 @@ public class Game {
 		
 		while(running) {
 			
-			// WHITE
-			turn.advance();
-			takeHalfTurn(turn.currentPlayer());
-			board.print();
+			takeTurn(turn.getCurrentPlayer());
+			turn.advanceTurn();
 			
-			// BLACK
-			turn.advance();
-			takeHalfTurn(turn.currentPlayer());
-			board.print();
 		}
 	}
 	
@@ -57,20 +50,25 @@ public class Game {
 		return true;
 	}
 	
-	private void takeHalfTurn(PieceColor color) {
-		board.update(color);		// update relative and valid moves
+	private void takeTurn(PieceColor color) {
+		board.updateValidMoves(color);		// update valid moves
 		
-		Point from, to;
-		do{
-			System.out.print(turn.turnNumber() + ". " + color.toString() + "'s turn: ");
-			String[] input = sc.nextLine().split("\\s+");
-			from = new Point(Integer.parseInt(input[0].charAt(0)+""), Integer.parseInt(input[0].charAt(1)+""));
-			to = new Point(Integer.parseInt(input[1].charAt(0)+""), Integer.parseInt(input[1].charAt(1)+""));
-		} while(!board.isValidMove(color, from, to));
+		// restrict movement from pieces of different color
 		
-		Piece captured = board.move(from, to);
-		if(captured != null) {
-			graveyard.add(captured);
-		}
+		// while invalid move
+			// get move
+			
+		// add to turn manager
+		// update log
+		// add captured piece to sidebar aka graveyard
+		
+		
+//		Point from, to;
+//		do{
+//			System.out.print(turn.getTurnNumber() + ". " + color.toString() + "'s turn: ");
+//			String[] input = sc.nextLine().split("\\s+");
+//			from = new Point(Integer.parseInt(input[0].charAt(0)+""), Integer.parseInt(input[0].charAt(1)+""));
+//			to = new Point(Integer.parseInt(input[1].charAt(0)+""), Integer.parseInt(input[1].charAt(1)+""));
+//		} while(!board.isValidMove(color, from, to));
 	}
 }
