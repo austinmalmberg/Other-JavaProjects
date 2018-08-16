@@ -17,8 +17,8 @@ import com.austin.chess.logical.piece.Rook;
 
 public class Board {
 	
-	public final int ROWS = 8;
-	public final int COLUMNS = 8;
+	public static final int ROWS = 8;
+	public static final int COLUMNS = 8;
 	
 	Piece[][] board;
 	List<Piece> pieces;
@@ -148,12 +148,9 @@ public class Board {
 	
 	// METHODS FOR GAME
 	
-	public Piece move(Point from, Point to) throws Exception {
+	public Piece move(Point from, Point to) {
 		Piece movingPiece = board[from.x][from.y];
 		Piece vacatingPiece = board[to.x][to.y];
-		
-		if(movingPiece == null) throw new NullPointerException(String.format("There isn't a piece at (%d, %d).", from.x, from.y));
-		if(movingPiece.color() == vacatingPiece.color()) throw new IllegalAccessException(String.format("Trying to move a piece to a square occupied by its own color."));
 		
 		if(vacatingPiece != null) {
 			pieces.remove(vacatingPiece);
