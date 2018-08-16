@@ -1,9 +1,0 @@
-Improved Eviscerate 3
-Increases the damage done by your Eviscerate ability by 7/14/20%
-
-Remorseless Attacks 2
-After killing an opponent that yields Experience or honor, give you a 20/40% increased critical strike chance on your next Sinister Strike, Hemorrhage, Backstab, Mutilate, Ambush, or Ghostly Strike.  Lasts 20 sec.
-
-Malice 5
-Increases your critical strike chance by 1/2/3/4/5%.
-
