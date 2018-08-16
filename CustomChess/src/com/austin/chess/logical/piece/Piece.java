@@ -59,9 +59,7 @@ public abstract class Piece implements Moveable {
 	 * @return All attacking and passive moves.
 	 */
 	public List<Point> moveset() { return moveset; }
-	
 	public List<Point> validMoves() { return validMoves; }
-	
 	
 	protected abstract void updateAttackMoves();
 	protected abstract void updatePassiveMoves();
@@ -81,6 +79,12 @@ public abstract class Piece implements Moveable {
 	 * Updates every turn.
 	 */
 	public abstract void updateValidMoves();
+	
+	public boolean canMove(Point to) {
+		return validMoves.contains(to);
+	}
+	
+	public abstract boolean offeringCheck();
 	
 	public List<Point> reverse(List<Point> points) {
 		List<Point> rev = new ArrayList<>(points);
