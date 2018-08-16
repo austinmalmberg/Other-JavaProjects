@@ -21,13 +21,13 @@ public class Main2 {
 	public static void main(String[] args) throws IOException{
 		long start = System.currentTimeMillis();
 		
-		Set<String> words = Files.lines(Paths.get("/Users/mac9812e/Eclipse Workspace/DailyProgrammer/src/dictionary.txt"))
+		Set<String> words = Files.lines(Paths.get("dictionary.txt"))
 	    		.collect(Collectors.toCollection(HashSet::new));
 		
 		// creates map of valid words and a list of valid words on  
 	    buildMap = words.stream()
 	    	.flatMap(w -> Stream.of(										// returns a stream of all word segments.  i.e. key=umble, value=tumble
-	    			new SimpleEntry<>(w.substring(1), w),
+	    			new SimpleEntry<>(w.substring(1), w),					// returns a stream of all word segments.  i.e. key=tumbl, value=tumble
 	    			new SimpleEntry<>(w.substring(0, w.length() - 1), w)))
 	        .filter(e -> words.contains(e.getKey()))						// filter word segments that exist in the dictionary
 	        .collect(Collectors.groupingBy(
