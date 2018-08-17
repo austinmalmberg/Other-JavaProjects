@@ -1,10 +1,12 @@
-package com.austin.chess.logical.game;
+package com.austin.chess.logic.game;
 
 import java.util.Scanner;
 
-import com.austin.chess.logical.board.Board;
-import com.austin.chess.logical.piece.PieceColor;
-import com.austin.chess.logical.turn.TurnManager;
+import com.austin.chess.logic.board.Board;
+import com.austin.chess.logic.piece.PieceColor;
+import com.austin.chess.logic.piece.PieceType;
+import com.austin.chess.logic.ruleset.Ruleset;
+import com.austin.chess.logic.turn.TurnManager;
 
 public class Game {
 
@@ -13,6 +15,7 @@ public class Game {
 	private boolean running;
 	
 	private Board board;
+	
 	private TurnManager turn;
 	
 	private Graveyard graveyard;	// sidebar
@@ -22,10 +25,13 @@ public class Game {
 		
 		running = true;
 		
-		board = new Board();
+		board = new Board(null);
 		turn = new TurnManager(PieceColor.values());
 		
 		graveyard = new Graveyard();
+	}
+	
+	public Game(PieceType[][] intialBoardState, Ruleset rules) {
 	}
 	
 	public void play() {

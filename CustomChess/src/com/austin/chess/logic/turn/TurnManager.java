@@ -1,10 +1,10 @@
-package com.austin.chess.logical.turn;
+package com.austin.chess.logic.turn;
 
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.austin.chess.logical.board.Move;
-import com.austin.chess.logical.piece.PieceColor;
+import com.austin.chess.logic.board.Move;
+import com.austin.chess.logic.piece.PieceColor;
 
 public class TurnManager {
 

@@ -1,11 +1,11 @@
-package com.austin.chess.logical.piece;
+package com.austin.chess.logic.piece;
 
 import java.awt.Point;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.austin.chess.logical.board.Board;
+import com.austin.chess.logic.board.Board;
 
 public class Knight extends Piece {
 	

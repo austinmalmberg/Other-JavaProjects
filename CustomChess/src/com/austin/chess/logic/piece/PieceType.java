@@ -1,7 +1,6 @@
-package com.austin.chess.logical.piece;
+package com.austin.chess.logic.piece;
 
 public enum PieceType {
-	NONE,
 	PAWN,
 	KNIGHT,
 	BISHOP,

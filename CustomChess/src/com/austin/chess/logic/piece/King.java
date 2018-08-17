@@ -1,8 +1,8 @@
-package com.austin.chess.logical.piece;
+package com.austin.chess.logic.piece;
 
 import java.util.stream.Collectors;
 
-import com.austin.chess.logical.board.Board;
+import com.austin.chess.logic.board.Board;
 
 public class King extends Piece {
 	

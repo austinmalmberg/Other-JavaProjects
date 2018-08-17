@@ -1,4 +1,4 @@
-package com.austin.chess.logical.board;
+package com.austin.chess.logic.board;
 
 import java.awt.Point;
 

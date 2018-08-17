@@ -1,4 +1,4 @@
-package com.austin.chess.logical.turn;
+package com.austin.chess.logic.turn;
 
 public class Log {
 	

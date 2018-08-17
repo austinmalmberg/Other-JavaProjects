@@ -1,18 +1,18 @@
-package com.austin.chess.logical.game;
+package com.austin.chess.logic.game;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.austin.chess.logical.piece.Bishop;
-import com.austin.chess.logical.piece.King;
-import com.austin.chess.logical.piece.Knight;
-import com.austin.chess.logical.piece.Pawn;
-import com.austin.chess.logical.piece.Piece;
-import com.austin.chess.logical.piece.PieceColor;
-import com.austin.chess.logical.piece.PieceType;
-import com.austin.chess.logical.piece.Queen;
-import com.austin.chess.logical.piece.Rook;
+import com.austin.chess.logic.piece.Bishop;
+import com.austin.chess.logic.piece.King;
+import com.austin.chess.logic.piece.Knight;
+import com.austin.chess.logic.piece.Pawn;
+import com.austin.chess.logic.piece.Piece;
+import com.austin.chess.logic.piece.PieceColor;
+import com.austin.chess.logic.piece.PieceType;
+import com.austin.chess.logic.piece.Queen;
+import com.austin.chess.logic.piece.Rook;
 
 public class Graveyard {
 

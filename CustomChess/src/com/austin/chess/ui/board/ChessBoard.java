@@ -1,24 +1,25 @@
 package com.austin.chess.ui.board;
 
 import java.awt.Point;
+import java.util.Map;
 
-import com.austin.chess.logical.board.Board;
-import com.austin.chess.ui.GameInterface;
+import com.austin.chess.logic.board.Board;
+import com.austin.chess.logic.piece.PieceType;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 
 public class ChessBoard extends FlowPane {
 	
-	private GameInterface game;
+	private Board board;
+	private Map<PieceType, ImageView> pieceImages;
 	
 	public static final Color[] TILE_COLORS = {Color.BLANCHEDALMOND, Color.GRAY}; 
 
-	public ChessBoard(GameInterface game) {
+	public ChessBoard(Board board) {
 		super();
-		
-		this.game = game;
 		
 		setPrefSize(Board.COLUMNS * Tile.WIDTH, Board.ROWS * Tile.HEIGHT);
 		

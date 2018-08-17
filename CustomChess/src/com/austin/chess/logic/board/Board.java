@@ -1,4 +1,4 @@
-package com.austin.chess.logical.board;
+package com.austin.chess.logic.board;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -6,26 +6,31 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.austin.chess.logical.piece.Bishop;
-import com.austin.chess.logical.piece.King;
-import com.austin.chess.logical.piece.Knight;
-import com.austin.chess.logical.piece.Pawn;
-import com.austin.chess.logical.piece.Piece;
-import com.austin.chess.logical.piece.PieceColor;
-import com.austin.chess.logical.piece.Queen;
-import com.austin.chess.logical.piece.Rook;
+import com.austin.chess.logic.piece.Bishop;
+import com.austin.chess.logic.piece.King;
+import com.austin.chess.logic.piece.Knight;
+import com.austin.chess.logic.piece.Pawn;
+import com.austin.chess.logic.piece.Piece;
+import com.austin.chess.logic.piece.PieceColor;
+import com.austin.chess.logic.piece.PieceType;
+import com.austin.chess.logic.piece.Queen;
+import com.austin.chess.logic.piece.Rook;
 
 public class Board {
 	
 	public static final int ROWS = 8;
 	public static final int COLUMNS = 8;
 	
+	PieceType[][] initialBoardState;
+	
 	Piece[][] board;
 	List<Piece> pieces;
 	
 	RelatedPoints relatedPoints;
 
-	public Board() {
+	public Board(PieceType[][] intialBoardState) {
+		this.initialBoardState = intialBoardState;
+		
 		board = new Piece[ROWS][COLUMNS];
 		
 		relatedPoints = new RelatedPoints(this);
@@ -147,6 +152,10 @@ public class Board {
 	}
 	
 	// METHODS FOR GAME
+	
+	public Piece[][] getBoard() {
+		return board;
+	}
 	
 	public Piece move(Point from, Point to) {
 		Piece movingPiece = board[from.x][from.y];
