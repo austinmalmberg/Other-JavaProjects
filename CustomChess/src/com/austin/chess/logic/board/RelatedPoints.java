@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class RelatedPoints {
 	
-	Board board;
+	private Board board;
 	
 	private final List<List<Point>> ranks;		// rows
 	private final List<List<Point>> files;		// files
@@ -21,15 +21,17 @@ public class RelatedPoints {
 	public RelatedPoints(Board board) {		
 		this.board = board;
 		
-		ranks = IntStream.range(0, board.ROWS).boxed()
-				.map(r -> IntStream.range(0, board.COLUMNS)
+		// rows
+		ranks = IntStream.range(0, Board.ROWS).boxed()
+				.map(r -> IntStream.range(0, Board.COLUMNS)
 						.mapToObj(c -> new Point(r, c))
 						.filter(board::inBounds)
 						.collect(Collectors.toList()))
 				.collect(Collectors.toList());
 		
-		files = IntStream.range(0, board.COLUMNS).boxed()
-				.map(c -> IntStream.range(0, board.ROWS)
+		// columns
+		files = IntStream.range(0, Board.COLUMNS).boxed()
+				.map(c -> IntStream.range(0, Board.ROWS)
 						.mapToObj(r -> new Point(r, c))
 						.filter(board::inBounds)
 						.collect(Collectors.toList()))
@@ -38,20 +40,20 @@ public class RelatedPoints {
 		diagonals = new HashMap<>();
 		inverseDiagonals = new HashMap<>();
 		
-		for(int key = 0; key < board.ROWS; key++) {
-			diagonals.put(key, diagonalAsStream(key, 0).collect(Collectors.toList()));
-			inverseDiagonals.put(key, inverseDiagonalAsStream(key, board.COLUMNS-1).collect(Collectors.toList()));
+		for(int key = 0; key < Board.ROWS; key++) {
+			diagonals.put(key, diagonalAsStream(new Point(key, 0)).collect(Collectors.toList()));
+			inverseDiagonals.put(key, inverseDiagonalAsStream(new Point(key, Board.COLUMNS-1)).collect(Collectors.toList()));
 			
 			if(key > 0) {
-				diagonals.put(-key, diagonalAsStream(board.ROWS-key, board.COLUMNS-1).collect(Collectors.toList()));
-				inverseDiagonals.put(-key, inverseDiagonalAsStream(board.ROWS-1-key, 0).collect(Collectors.toList()));
+				diagonals.put(-key, diagonalAsStream(new Point(Board.ROWS - key, Board.COLUMNS-1)).collect(Collectors.toList()));
+				inverseDiagonals.put(-key, inverseDiagonalAsStream(new Point(Board.ROWS-1 - key, 0)).collect(Collectors.toList()));
 			}
 		}
 	}
 	
 	public Stream<Point> allPointsOnBoardAsStream() {
-		return IntStream.range(0, board.ROWS).boxed()
-				.flatMap(r -> IntStream.range(0, board.COLUMNS).mapToObj(c -> new Point(r, c)).filter(board::inBounds));
+		return IntStream.range(0, Board.ROWS).boxed()
+				.flatMap(r -> IntStream.range(0, Board.COLUMNS).mapToObj(c -> new Point(r, c)).filter(board::inBounds));
 	}
 	
 	public List<Point> getSurroundingPoints(int max) {
@@ -72,12 +74,12 @@ public class RelatedPoints {
 		return files.get(c);
 	}
 	
-	public List<Point> getDiagonal(int r, int c) {
-		return diagonals.get(r - c);
+	public List<Point> getDiagonal(Point location) {
+		return diagonals.get(location.x - location.y);
 	}
 	
-	public List<Point> getInverseDiagonal(int r, int c) {
-		return inverseDiagonals.get(r-board.ROWS - c);
+	public List<Point> getInverseDiagonal(Point location) {
+		return inverseDiagonals.get(location.x-Board.ROWS - location.y);
 	}
 	
 	
@@ -85,15 +87,19 @@ public class RelatedPoints {
 	// PRIVATE METHODS
 	
 	private Stream<Point> diagonalAsStream() {
-		return IntStream.range(0, Math.max(board.ROWS, board.COLUMNS))
+		return IntStream.range(0, Math.max(Board.ROWS, Board.COLUMNS))
 				.mapToObj(i -> new Point(i, i));
 	}
 	
-	private Stream<Point> diagonalAsStream(int r, int c) {
+	private Stream<Point> diagonalAsStream(Point location) {
+		int r = location.x;
+		int c = location.y;
 		return diagonalAsStream().map(point -> new Point(r + point.x - c, point.y)).filter(board::inBounds);
 	}
 	
-	private Stream<Point> inverseDiagonalAsStream(int r, int c) {
+	private Stream<Point> inverseDiagonalAsStream(Point location) {
+		int r = location.x;
+		int c = location.y;
 		return diagonalAsStream().map(point -> new Point(point.x, c - point.y + r)).filter(board::inBounds);
 	}
 }

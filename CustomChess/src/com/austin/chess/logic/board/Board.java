@@ -4,73 +4,37 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-import com.austin.chess.logic.piece.Bishop;
-import com.austin.chess.logic.piece.King;
-import com.austin.chess.logic.piece.Knight;
-import com.austin.chess.logic.piece.Pawn;
+import com.austin.chess.Ruleset;
 import com.austin.chess.logic.piece.Piece;
 import com.austin.chess.logic.piece.PieceColor;
-import com.austin.chess.logic.piece.PieceType;
-import com.austin.chess.logic.piece.Queen;
-import com.austin.chess.logic.piece.Rook;
 
 public class Board {
 	
 	public static final int ROWS = 8;
 	public static final int COLUMNS = 8;
 	
-	PieceType[][] initialBoardState;
+	private LogicBoardInitializer initializer;
+	private Ruleset ruleset;
 	
-	Piece[][] board;
-	List<Piece> pieces;
+	private Piece[][] board;
+	private List<Piece> pieces;
 	
-	RelatedPoints relatedPoints;
+	private RelatedPoints relatedPoints;
 
-	public Board(PieceType[][] intialBoardState) {
-		this.initialBoardState = intialBoardState;
+	public Board(int boardstate, int ruleset) {
+		this.ruleset = new Ruleset(ruleset);
+		this.initializer = new LogicBoardInitializer(this, boardstate);
 		
-		board = new Piece[ROWS][COLUMNS];
+		board = initializer.getBoard();
 		
 		relatedPoints = new RelatedPoints(this);
-		
-		IntStream.range(0, COLUMNS).forEach(c -> {			
-			board[1][c] = new Pawn(this, 1, c, PieceColor.WHITE);
-			board[6][c] = new Pawn(this, 6, c, PieceColor.BLACK);
-			
-			switch(c) {
-			case 0: case 7:
-				board[0][c] = new Rook(this, 0, c, PieceColor.WHITE);
-				board[7][c] = new Rook(this, 7, c, PieceColor.BLACK);
-				break;
-			case 1: case 6:
-				board[0][c] = new Knight(this, 0, c, PieceColor.WHITE);
-				board[7][c] = new Knight(this, 7, c, PieceColor.BLACK);
-				break;
-			case 2: case 5:
-				board[0][c] = new Bishop(this, 0, c, PieceColor.WHITE);
-				board[7][c] = new Bishop(this, 7, c, PieceColor.BLACK);
-				break;
-			case 3:
-				board[0][c] = new Queen(this, 0, c, PieceColor.WHITE);
-				board[7][c] = new Queen(this, 7, c, PieceColor.BLACK);
-				break;
-			case 4:
-				board[0][c] = new King(this, 0, c, PieceColor.WHITE);
-				board[7][c] = new King(this, 7, c, PieceColor.BLACK);
-				break;
-			default:
-				// nothing
-				break;
-			}
-		});
 		
 		// init pieces list
 		pieces = relatedPoints.allPointsOnBoardAsStream().map(point -> board[point.x][point.y]).filter(piece -> piece != null).collect(Collectors.toList());
 		
-		// update initial moves
-		pieces.stream().forEach(Piece::updateMoveset);
+//		// update initial moves
+//		pieces.stream().forEach(Piece::updateMoveset);
 	}
 	
 	// METHODS FOR PIECES
@@ -157,6 +121,10 @@ public class Board {
 		return board;
 	}
 	
+	public Piece getPiece(Point p) {
+		return board[p.x][p.y];
+	}
+	
 	public Piece move(Point from, Point to) {
 		Piece movingPiece = board[from.x][from.y];
 		Piece vacatingPiece = board[to.x][to.y];
@@ -168,7 +136,7 @@ public class Board {
 		board[from.x][from.y] = null;
 		board[to.x][to.y] = movingPiece;
 		
-		movingPiece.setLocation(to.x, to.y);
+		movingPiece.setLocation(to);
 		
 		movingPiece.updateMoveset();
 		movingPiece.updateValidMoves();
@@ -219,6 +187,8 @@ public class Board {
 	}
 	
 	// PUBLIC GENERIC
+	
+	public List<Piece> getPieces() { return pieces; }
 	
 	public void print() {
 		for(int r = board.length-1; r >= 0; r--) {

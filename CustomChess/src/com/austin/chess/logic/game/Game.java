@@ -1,42 +1,24 @@
 package com.austin.chess.logic.game;
 
-import java.util.Scanner;
-
-import com.austin.chess.logic.board.Board;
 import com.austin.chess.logic.piece.PieceColor;
-import com.austin.chess.logic.piece.PieceType;
-import com.austin.chess.logic.ruleset.Ruleset;
 import com.austin.chess.logic.turn.TurnManager;
 
 public class Game {
 
-	private Scanner sc;
-	
 	private boolean running;
-	
-	private Board board;
 	
 	private TurnManager turn;
 	
-	private Graveyard graveyard;	// sidebar
+	// implement sidebar with captured pieces
+	// implement log
 	
-	public Game() {
-		sc = new Scanner(System.in);
-		
+	public Game() {		
 		running = true;
 		
-		board = new Board(null);
 		turn = new TurnManager(PieceColor.values());
-		
-		graveyard = new Graveyard();
 	}
 	
-	public Game(PieceType[][] intialBoardState, Ruleset rules) {
-	}
-	
-	public void play() {
-		board.print();
-		
+	public void play() {		
 		while(running) {
 			
 			takeTurn(turn.getCurrentPlayer());
@@ -57,7 +39,7 @@ public class Game {
 	}
 	
 	private void takeTurn(PieceColor color) {
-		board.updateValidMoves(color);		// update valid moves
+		// board.updateValidMoves(color);
 		
 		// restrict movement from pieces of different color
 		
