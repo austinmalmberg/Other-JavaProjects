@@ -1,16 +1,13 @@
 package com.austin.chess.ui;
 
-import java.util.Map;
-
-import com.austin.chess.logic.board.Board;
-import com.austin.chess.logic.piece.PieceType;
+import com.austin.chess.Ruleset;
+import com.austin.chess.logic.board.LogicBoardInitializer;
 import com.austin.chess.ui.board.ChessBoard;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
@@ -18,16 +15,14 @@ public class GameInterface extends Application  {
 	
 	private FlowPane root;
 	
-	private Board board;
-	private ChessBoard gameBoard;
+	private ChessBoard board;
 	
 	public Parent createContent() {
 		initObjects();
 		
 		root = new FlowPane();
 		
-		root.getChildren().add(gameBoard);
-		root.getChildren().add(pieces);
+		root.getChildren().add(board);
 		
 		return root;
 	}
@@ -44,16 +39,7 @@ public class GameInterface extends Application  {
 	
 	private void initObjects() {		
 		// load board
-		gameBoard = new ChessBoard(board);
-		
-		// load pieces
-		pieces = initPiecesMap();
-	}
-	
-	private Map<PieceType, ImageView> initPiecesMap() {
-		
-		
-		return null;
+		board = new ChessBoard(LogicBoardInitializer.CLASSICAL, Ruleset.CLASSICAL);
 	}
 	
 	public static void main(String[] args) {
