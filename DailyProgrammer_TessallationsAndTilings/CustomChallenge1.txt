@@ -1,6 +1,0 @@
-90
-it doesn't matter what goes here
-|-->
-|\|/
-|\|/
-v<<-

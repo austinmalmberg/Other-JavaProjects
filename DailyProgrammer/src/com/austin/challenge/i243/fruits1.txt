@@ -1,5 +1,0 @@
-banana 32
-kiwi 41
-mango 97
-papaya 254
-pineapple 399

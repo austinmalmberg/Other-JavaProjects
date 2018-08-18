@@ -1,3 +1,0 @@
-GIVEN: A start date and end date (could just be ints), and then a selection start and end date
-
-OUTPUT true if any date between start/end date falls during the selection start/end date
