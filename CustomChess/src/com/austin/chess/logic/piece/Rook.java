@@ -8,19 +8,15 @@ import java.util.stream.Collectors;
 import com.austin.chess.logic.board.Board;
 
 public class Rook extends Piece {
-
-	public Rook(PieceColor color) {
-		super(color, PieceType.ROOK);
-	}
 	
-	public Rook(Board board, int r, int c, PieceColor color) {
-		super(board, r, c, color, PieceType.ROOK);
+	public Rook(Board board, Point location, PieceColor color) {
+		super(board, location, color, PieceType.ROOK);
 	}
 	
 	@Override
-	protected void updateAttackMoves() {
-		attackMoves = new ArrayList<>(board.relatedPoints().getRank(r));
-		attackMoves.addAll(board.relatedPoints().getFile(c));
+	protected void updateAttackMoves() {		
+		attackMoves = new ArrayList<>(board.relatedPoints().getRank(location.x));
+		attackMoves.addAll(board.relatedPoints().getFile(location.y));
 	}
 
 	@Override
@@ -29,22 +25,28 @@ public class Rook extends Piece {
 	@Override
 	public void updateValidMoves() {
 		
-		List<Point> rank = board.relatedPoints().getRank(r);
-		List<Point> file = board.relatedPoints().getFile(c);
+		List<Point> rank = board.relatedPoints().getRank(location.x);
+		List<Point> file = board.relatedPoints().getFile(location.y);
 		
-		validMoves = new ArrayList<>(board.getAttackMoves(color, rank.stream().filter(point -> point.y > c).collect(Collectors.toList())));	// horizontal moves right of rook
+		validMoves = new ArrayList<>(board.getAttackMoves(color, rank.stream().filter(point -> point.y > location.y).collect(Collectors.toList())));	// horizontal moves right of rook
 		
 		validMoves.addAll(board.getAttackMoves(color,
 				reverse(rank).stream()
-					.filter(point -> point.y < c)
+					.filter(point -> point.y < location.y)
 					.collect(Collectors.toList())));	// horizontal moves left of rook
 		
-		validMoves.addAll(board.getAttackMoves(color, file.stream().filter(point -> point.x > r).collect(Collectors.toList())));	// vertical moves above rook
+		validMoves.addAll(board.getAttackMoves(color, file.stream().filter(point -> point.x > location.x).collect(Collectors.toList())));	// vertical moves above rook
 		
 		validMoves.addAll(board.getAttackMoves(color,
 				reverse(file).stream()
-					.filter(point -> point.x < r)
+					.filter(point -> point.x < location.x)
 					.collect(Collectors.toList())));	// vertical moves below rook
+	}
+	
+	@Override
+	public boolean offeringCheck() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override

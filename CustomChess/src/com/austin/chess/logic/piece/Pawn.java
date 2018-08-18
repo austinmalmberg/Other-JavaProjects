@@ -11,12 +11,8 @@ public class Pawn extends Piece {
 
 	private int direction_mod;
 	
-	public Pawn(PieceColor color) {
-		super(color, PieceType.PAWN);
-	}
-	
-	public Pawn(Board board, int r, int c, PieceColor color) {
-		super(board, r, c, color, PieceType.PAWN);
+	public Pawn(Board board, Point location, PieceColor color) {
+		super(board, location, color, PieceType.PAWN);
 		
 		direction_mod = color == PieceColor.WHITE ? 1 : -1;
 	}
@@ -24,16 +20,16 @@ public class Pawn extends Piece {
 	@Override
 	protected void updateAttackMoves() {
 		// forward one and to either side
-		attackMoves = Stream.concat(board.relatedPoints().getDiagonal(r, c).stream(), board.relatedPoints().getInverseDiagonal(r, c).stream())
-				.filter(point -> point.x == r + 1*direction_mod)
+		attackMoves = Stream.concat(board.relatedPoints().getDiagonal(location).stream(), board.relatedPoints().getInverseDiagonal(location).stream())
+				.filter(point -> point.x == location.x + 1*direction_mod)
 				.collect(Collectors.toList());
 	}
 
 	@Override
 	protected void updatePassiveMoves() {
 		int maxMoves = onStartingRow() ? 2 : 1;
-		List<Point> file = board.relatedPoints().getFile(c);
-		passiveMoves = file.subList(r + 1 * direction_mod, r+1 + maxMoves * direction_mod);
+		List<Point> file = board.relatedPoints().getFile(location.y);
+		passiveMoves = file.subList(location.x + 1 * direction_mod, location.x+1 + maxMoves * direction_mod);
 	}
 	
 	@Override
@@ -43,8 +39,14 @@ public class Pawn extends Piece {
 	}
 	
 	private boolean onStartingRow() {
-		return (color == PieceColor.WHITE && r == 1) ||
-				(color == PieceColor.BLACK && r == board.ROWS - 2);
+		return (color == PieceColor.WHITE && location.x == 1) ||
+				(color == PieceColor.BLACK && location.x == Board.ROWS - 2);
+	}
+	
+	@Override
+	public boolean offeringCheck() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	@Override

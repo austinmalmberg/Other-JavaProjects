@@ -9,18 +9,16 @@ import com.austin.chess.logic.board.Board;
 
 public class Bishop extends Piece {
 	
-	public Bishop(PieceColor color) {
-		super(color, PieceType.BISHOP);
-	}
-	
-	public Bishop(Board board, int r, int c, PieceColor color) {
-		super(board, r, c, color, PieceType.BISHOP);
+	public Bishop(Board board, Point location, PieceColor color) {
+		super(board, location, color, PieceType.BISHOP);
 	}
 	
 	@Override
 	protected void updateAttackMoves() {
-		attackMoves = new ArrayList<>(board.relatedPoints().getDiagonal(r, c));
-		attackMoves.addAll(board.relatedPoints().getInverseDiagonal(r, c));
+		System.out.println(board.relatedPoints().getDiagonal(location));
+		
+		attackMoves = new ArrayList<>(board.relatedPoints().getDiagonal(location));
+		attackMoves.addAll(board.relatedPoints().getInverseDiagonal(location));
 	}
 
 	@Override
@@ -29,24 +27,30 @@ public class Bishop extends Piece {
 	@Override
 	public void updateValidMoves() {
 
-		List<Point> direct = board.relatedPoints().getDiagonal(r, c);
-		List<Point> inverse = board.relatedPoints().getInverseDiagonal(r, c);
+		List<Point> direct = board.relatedPoints().getDiagonal(location);
+		List<Point> inverse = board.relatedPoints().getInverseDiagonal(location);
 		
-		validMoves = new ArrayList<>(board.getAttackMoves(color, direct.stream().filter(point -> point.y > c).collect(Collectors.toList())));	// up and right of bishop
+		validMoves = new ArrayList<>(board.getAttackMoves(color, direct.stream().filter(point -> point.y > location.y).collect(Collectors.toList())));	// up and right of bishop
 		
 		
 		validMoves.addAll(board.getAttackMoves(color,
 				reverse(direct).stream()
-					.filter(point -> point.y < c)
+					.filter(point -> point.y < location.y)
 					.collect(Collectors.toList())));	// down and left of bishop
 		
-		validMoves.addAll(board.getAttackMoves(color, inverse.stream().filter(point -> point.y > c).collect(Collectors.toList())));	// up and left of bishop
+		validMoves.addAll(board.getAttackMoves(color, inverse.stream().filter(point -> point.y > location.y).collect(Collectors.toList())));	// up and left of bishop
 		
 		validMoves.addAll(board.getAttackMoves(color,
 				reverse(inverse).stream()
-					.filter(point -> point.y < c)
+					.filter(point -> point.y < location.y)
 					.collect(Collectors.toList())));	// down and right of bishop
 		
+	}
+	
+	@Override
+	public boolean offeringCheck() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override

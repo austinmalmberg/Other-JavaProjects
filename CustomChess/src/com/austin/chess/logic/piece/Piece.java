@@ -10,7 +10,8 @@ import com.austin.chess.logic.board.Board;
 public abstract class Piece implements Moveable {
 
 	protected Board board;
-	protected int r, c;
+	
+	protected Point location;	// update pieces with points instead of r, c
 	
 	protected final PieceColor color;
 	protected final PieceType type;
@@ -21,15 +22,9 @@ public abstract class Piece implements Moveable {
 	
 	protected List<Point> validMoves;		// only possible moves
 	
-	public Piece(PieceColor color, PieceType type) {
-		this.color = color;
-		this.type = type;
-	}
-	
-	public Piece(Board board, int r, int c, PieceColor color, PieceType type) {
+	public Piece(Board board, Point location, PieceColor color, PieceType type) {
 		this.board = board;
-		this.r = r;
-		this.c = c;
+		this.location = location;
 		
 		this.color = color;
 		this.type = type;
@@ -41,19 +36,16 @@ public abstract class Piece implements Moveable {
 		validMoves = new ArrayList<>();
 	}
 	
-	public void setLocation(Point p) {
-		this.r = p.x;
-		this.c = p.y;
-	}
-	public void setLocation(int r, int c) {
-		this.r = r;
-		this.c = c;
+	public void setLocation(Point location) {
+		this.location = location;
 	}
 	
 	public PieceColor color() { return color; }
 	public PieceType type() { return type; }
-	public int r() { return r; }
-	public int c() { return c; }
+	
+	public Point getLocation() { return location; }
+	public int r() { return location.x; }
+	public int c() { return location.y; }
 	
 	/**
 	 * @return All attacking and passive moves.

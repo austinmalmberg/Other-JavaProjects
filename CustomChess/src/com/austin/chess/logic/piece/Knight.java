@@ -9,22 +9,13 @@ import com.austin.chess.logic.board.Board;
 
 public class Knight extends Piece {
 	
-	private final List<Point> ABSOLUTE_POSITIONS;
+	private final List<Point> ABSOLUTE_MOVES;
 	private final int[] MOVE_INCR = {-2, -1, 1, 2};
-
-	public Knight(PieceColor color) {
-		super(color, PieceType.KNIGHT);
-		
-		ABSOLUTE_POSITIONS = IntStream.of(MOVE_INCR).boxed()
-				.flatMap(i -> IntStream.of(MOVE_INCR).mapToObj(j -> new Point(i, j)))
-				.filter(point -> (Math.abs(point.x) == 2 || Math.abs(point.y) == 2) && (Math.abs(point.x) != 2 || Math.abs(point.y) != 2))
-				.collect(Collectors.toList());
-	}
 	
-	public Knight(Board board, int r, int c, PieceColor color) {
-		super(board, r, c, color, PieceType.KNIGHT);
+	public Knight(Board board, Point location, PieceColor color) {
+		super(board, location, color, PieceType.KNIGHT);
 		
-		ABSOLUTE_POSITIONS = IntStream.of(MOVE_INCR).boxed()
+		ABSOLUTE_MOVES = IntStream.of(MOVE_INCR).boxed()
 				.flatMap(i -> IntStream.of(MOVE_INCR).mapToObj(j -> new Point(i, j)))
 				.filter(point -> (Math.abs(point.x) == 2 || Math.abs(point.y) == 2) && (Math.abs(point.x) != 2 || Math.abs(point.y) != 2))
 				.collect(Collectors.toList());
@@ -32,8 +23,8 @@ public class Knight extends Piece {
 	
 	@Override
 	protected void updateAttackMoves() {
-		attackMoves = ABSOLUTE_POSITIONS.stream()
-				.map(point -> new Point(r + point.x, c + point.y))
+		attackMoves = ABSOLUTE_MOVES.stream()
+				.map(point -> new Point(location.x + point.x, location.y + point.y))
 				.filter(board::inBounds)
 				.collect(Collectors.toList());
 	}
@@ -46,6 +37,12 @@ public class Knight extends Piece {
 		validMoves = attackMoves.stream()
 				.filter(point -> board.isNullorEnemyAtLocation(color, point))
 				.collect(Collectors.toList());
+	}
+	
+	@Override
+	public boolean offeringCheck() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override

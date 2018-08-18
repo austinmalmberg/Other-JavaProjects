@@ -8,24 +8,20 @@ import java.util.stream.Collectors;
 import com.austin.chess.logic.board.Board;
 
 public class Queen extends Piece {
-
-	public Queen(PieceColor color) {
-		super(color, PieceType.QUEEN);
-	}
 	
-	public Queen(Board board, int r, int c, PieceColor color) {
-		super(board, r, c, color, PieceType.QUEEN);
+	public Queen(Board board, Point location, PieceColor color) {
+		super(board, location, color, PieceType.QUEEN);
 	}
 	
 	@Override
 	protected void updateAttackMoves() {
 		// straights
-		attackMoves = new ArrayList<>(board.relatedPoints().getRank(r));
-		attackMoves.addAll(board.relatedPoints().getFile(c));
+		attackMoves = new ArrayList<>(board.relatedPoints().getRank(location.x));
+		attackMoves.addAll(board.relatedPoints().getFile(location.y));
 		
 		// diagonals
-		attackMoves.addAll(board.relatedPoints().getDiagonal(r, c));
-		attackMoves.addAll(board.relatedPoints().getInverseDiagonal(r, c));
+		attackMoves.addAll(board.relatedPoints().getDiagonal(location));
+		attackMoves.addAll(board.relatedPoints().getInverseDiagonal(location));
 	}
 
 	@Override
@@ -34,42 +30,48 @@ public class Queen extends Piece {
 	@Override
 	public void updateValidMoves() {
 		
-		List<Point> rank = board.relatedPoints().getRank(r);
-		List<Point> file = board.relatedPoints().getFile(c);
+		List<Point> rank = board.relatedPoints().getRank(location.x);
+		List<Point> file = board.relatedPoints().getFile(location.y);
 		
-		validMoves = new ArrayList<>(board.getAttackMoves(color, rank.stream().filter(point -> point.x > c).collect(Collectors.toList())));	// horizontal moves right of queen
+		validMoves = new ArrayList<>(board.getAttackMoves(color, rank.stream().filter(point -> point.x > location.y).collect(Collectors.toList())));	// horizontal moves right of queen
 		
 		validMoves.addAll(board.getAttackMoves(color,
 				reverse(rank).stream()
-					.filter(point -> point.x < c)
+					.filter(point -> point.x < location.y)
 					.collect(Collectors.toList())));	// horizontal moves left of queen
 		
-		validMoves.addAll(board.getAttackMoves(color, file.stream().filter(point -> point.x > r).collect(Collectors.toList())));	// vertical moves above queen
+		validMoves.addAll(board.getAttackMoves(color, file.stream().filter(point -> point.x > location.x).collect(Collectors.toList())));	// vertical moves above queen
 		
 		validMoves.addAll(board.getAttackMoves(color,
 				reverse(file).stream()
-					.filter(point -> point.x < r)
+					.filter(point -> point.x < location.x)
 					.collect(Collectors.toList())));	// vertical moves below queen
 		
 		
-		List<Point> direct = board.relatedPoints().getDiagonal(r, c);
-		List<Point> inverse = board.relatedPoints().getInverseDiagonal(r, c);
+		List<Point> direct = board.relatedPoints().getDiagonal(location);
+		List<Point> inverse = board.relatedPoints().getInverseDiagonal(location);
 		
-		validMoves.addAll(board.getAttackMoves(color, direct.stream().filter(point -> point.y > c).collect(Collectors.toList())));	// up and right of queen
+		validMoves.addAll(board.getAttackMoves(color, direct.stream().filter(point -> point.y > location.y).collect(Collectors.toList())));	// up and right of queen
 		
 		
 		validMoves.addAll(board.getAttackMoves(color,
 				reverse(direct).stream()
-					.filter(point -> point.y < c)
+					.filter(point -> point.y < location.y)
 					.collect(Collectors.toList())));	// down and left of queen
 		
-		validMoves.addAll(board.getAttackMoves(color, inverse.stream().filter(point -> point.y > c).collect(Collectors.toList())));	// up and left of queen
+		validMoves.addAll(board.getAttackMoves(color, inverse.stream().filter(point -> point.y > location.y).collect(Collectors.toList())));	// up and left of queen
 		
 		validMoves.addAll(board.getAttackMoves(color,
 				reverse(inverse).stream()
-					.filter(point -> point.y < c)
+					.filter(point -> point.y < location.y)
 					.collect(Collectors.toList())));	// down and right of queen
 		
+	}
+	
+	@Override
+	public boolean offeringCheck() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
