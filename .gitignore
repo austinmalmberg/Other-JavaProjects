@@ -7,8 +7,10 @@ tmp/
 *~.nib
 local.properties
 .settings/
-.loadpath
-.recommenders
+*.loadpath
+*.recommenders
+*.classpath
+*.project
 
 # Locally stored "Eclipse launch configurations"
 *.launch
