@@ -1,4 +1,4 @@
-package com.austin;
+package com.austin.relationships;
 
 import java.awt.Point;
 import java.util.Set;

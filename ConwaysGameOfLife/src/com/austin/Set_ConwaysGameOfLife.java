@@ -6,6 +6,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import com.austin.patterns.Oscillators;
+import com.austin.relationships.AdjacentPoints;
 
 public class Set_ConwaysGameOfLife implements Runnable {
 	
