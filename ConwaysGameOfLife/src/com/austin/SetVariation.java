@@ -1,18 +1,24 @@
 package com.austin;
 import com.austin.patterns.Oscillators;
 
-public class Array_ConwaysGameOfLife implements Runnable {
+/**
+ * Uses a 2d array and traditional loops
+ * 
+ * @author Austin Malmberg
+ *
+ */
+public class SetVariation implements Runnable {
 	
 	public static final int WAIT_TIME = 700;
 	
 	public static void main(String[] args) {
-		new Array_ConwaysGameOfLife(Oscillators.PULSAR).run();
+		new SetVariation(Oscillators.PULSAR).run();
 	}
 	
 	private boolean[][] board;
 	private boolean running;
 	
-	public Array_ConwaysGameOfLife(boolean[][] board) {		
+	public SetVariation(boolean[][] board) {		
 		this.board = board;
 		
 		running = true;

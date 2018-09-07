@@ -8,7 +8,13 @@ import java.util.stream.Stream;
 import com.austin.patterns.Oscillators;
 import com.austin.relationships.AdjacentPoints;
 
-public class Set_ConwaysGameOfLife implements Runnable {
+/**
+ * Uses a set and streams
+ * 
+ * @author Austin Malmberg
+ *
+ */
+public class ArrayVariation implements Runnable {
 	
 	public static final int WAIT_TIME = 700;
 
@@ -22,10 +28,10 @@ public class Set_ConwaysGameOfLife implements Runnable {
 	
 	public static void main(String[] args) {
 //		new BoardSet(Stills.BLOCK).run();
-		new Set_ConwaysGameOfLife(Oscillators.PULSAR).run();
+		new ArrayVariation(Oscillators.PULSAR).run();
 	}
 	
-	public Set_ConwaysGameOfLife(boolean[][] pattern) {
+	public ArrayVariation(boolean[][] pattern) {
 		currState = IntStream.range(0, pattern.length).boxed()
 				.flatMap(r -> IntStream.range(0, pattern[r].length)
 						.filter(c -> pattern[r][c])
